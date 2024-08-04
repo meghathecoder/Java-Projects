@@ -1,0 +1,204 @@
+Important notes
+===============
+
+1. A function should not handle the result, it should be returned.
+2. For string comparison, use equals.
+3. When using scan.nextLine() after a scan.nextInt(), leave a nextLine() for nextInt() to take up.
+4. println() prints text and moves to next line.
+5. print() prints text, and remains in the same line.
+6. if you want randomNumber between 0 and n, multiply the function with n+1 i.e for getting numbers between 0 and 6, do Math.random()*7.
+
+7. continue skips one particular run in a loop, while break breaks the entire loop.
+8. if continue is put, the lines after continue in that particular loop wont run.
+9. In array declaration, put square brackets near the type, and all values should share the same type.
+10. The array variable stores the reference to the location where the values are stored, so if you just print the variable, then you get a hashcode reference value, and not the stored array value.
+
+11. You cannot change the length of an array, you can only create a new array.
+12. 2d array is an array containing arrays. array[][]=first value is the no of rows, second value is the number of elements per row. 
+array[3][4] = 3 rows, 4 columns
+
+13. In nested loop, think like this, first loop for rows, second loop for column
+
+for(int i=0;i<12;i++){ /* this is for looping through each row*/
+  for(int j=0;j<12;j++){	/* this is for looping through each column*/
+
+  }	
+}
+
+Module 2=object oriented programming(high quality code)
+=========================================================
+
+find closely related variables, and combine them to an object
+
+1. Look for object(things)
+2. Look for fields which describe an object
+3. Look for action performed by object
+
+class-a blueprint from which you can create an object. from this blueprint we can create many objects.
+
+Car is a class with fields price, color etc.
+you can make many car objects from the car class.
+
+A constructor is a special method that allows us to initialize an object at the moment of its creation.
+Constructor is the first thing that runs when you create an object.
+
+Use constructor to update object fields.
+
+encapsulation
+-=============
+protecting data from getting modified by making the fields private, and using getter methods to retrieve the value.
+
+By making the fuelLevel field private and using a getter to access its value, we've implemented the principle of encapsulation. This means we're protecting our data by keeping fields private and providing public methods (like getters) to access those values. Encapsulation helps ensure data integrity by preventing outside code from inadvertently modifying our object's state.
+
+getters
+==============
+get value of a field inside a class, thereby preventing modifying the value
+
+setters
+==========
+A setter is a method that allows us to change the value of a private field. This method is typically public and is named 'set' followed by the field name.
+
+mutable object=modifiable
+=========================
+object with setters
+
+in mutable objects,
+
+- avoid setting variables to each other
+- this will result in two variables pointing to the same object
+
+Note: Arrays are mutable objects.
+
+copy constructor
+===================
+If you want to create copy of an object, create a copy constructor, otherwise if you assign the object to a new variable, both will be pointing to the same object(just like array reference), if value changed in new variable, the old will also change, which is not correct.
+
+Just like creating a brand new array and then copying the values of original array to the new array, we have to do for the object as well.
+
+overloading constructors
+=======================
+The constructor overloading can be defined as the concept of having more than one constructor with different parameters so that every constructor can perform a different task.
+
+Data types
+=============
+we can categorise data types into:
+1. Primitive
+2. Immutable objects
+3. Mutable objects
+
+null=reference to nothing
+=====
+
+Primitive data types=stores only single value
+=====================
+int,char,double,boolean,long
+
+Immutable objects(eg. Integer, Character,Double, String,Boolean, Long)
+-===================
+1. considered safer, as they cannot be modified.
+2. state of an immutable object cannot be changed.
+3. references can be shared safely.
+
+mutable objects(any object that can be modified)
+==============
+1. unsafe, they can be modified.
+2. cannot share references.
+
+
+Arraylist and linkedlist
+=============================
+1. Arraylist and linkedlist do not have a fixed size.
+2. they are different in storing data.
+3. these both are of type of list, regardless of whether you are defining linkedlist or arraylist.
+
+	List list=new LinkedList();
+	List list=new ArrayList(;
+
+4. the type of element that a list can store is generic, so we can override this generic by adding pointy bracket(<>)
+
+	List<String> list
+
+5. we can only store objects in a list.
+6. arraylist is backed by an underlying array, which has the capacity to resize.
+7. Arraylist is not efficient in adding and removing elements from the middle, as it will take time to shift all the elements by one place and then insert a new element in middle.
+
+LinkedList
+=============
+1.very slow at retrieving data.
+2. it is a chain of nodes, where each node is linked to previous and the next node.
+3. The elements inside of a LinkedList are not indexed. The LinkedList needs to travel from one node to another until it reaches an exact number of steps.
+4. LinkedList is very efficient in inserting and removing elements from the middle.(faster) as it will just embed a new node in middle, rather than shifting elements like arraylist.
+
+Equality contract
+====================
+
+when you override equality, you should override hashcode.
+
+The equals method overrided
+=============================
+this is because default equals method for object comparison compares the references, and not the object itself. And the contains() method also does the same, using equals method in its background.
+
+So, our overrided method for equals will compare reference of object, if false will check if the object is an instance of the (city) class object and then compares the parameters of that object with the object passed(checking every field value, if it is same or not) then returns true if it is same. In this equals method, we are passing 'Object' and not the 'City' class. so this method will accept any object, but at last will be true only if the field values are same.
+
+Exception handling
+======================
+compile time exceptions are handled using try catch block. they are predictable errors checked before exception.Examples: filenotfoundexception,network exception, sql exception, ioexception.
+
+runtime exceptions: occurs at runtime and is not checked by compiler.
+
+ we'll use 'throws' if we want the exception handling to be done by the code block who is calling this function. 
+for eg.
+	
+public static void readFile() throws FileNotFoundException {
+    FileInputStream fis = new FileInputStream("greetings.txt"); 
+}
+
+The code above is prone to a checked FileNotFoundException. However, instead of using a try-catch block within the readFile function itself, you can use the 'throws' keyword in the function declaration to indicate that this function might throw an exception.
+
+This tells any callers of readFile that they are responsible for handling a potential FileNotFoundException. The function is effectively communicating, "I might encounter this particular problem when you run me. If it happens, I'm not going to deal with it - you will have to."
+This allows us to shift the handling of exceptions to the appropriate context within the larger system, improving code readability and maintainability. For instance, in the main method where readFile is being called, we can now use a try-catch block to handle the exception:
+
+public static void main(String[] args) {
+    try {
+        readFile();
+    } catch (FileNotFoundException e) {
+        System.out.println("File not found!");
+    }
+}
+
+In this approach, the responsibility of handling the FileNotFoundException is passed onto the main method. The main method now has the flexibility to handle the exception as it sees fit based on its specific context.
+This results in the final code:
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            readFile();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!");
+        }
+    }
+
+
+    public static void readFile() throws FileNotFoundException {
+        FileInputStream fis = new FileInputStream("greetings.txt");
+    }
+}
+
+
+Finally block
+=================
+
+The finally block is a segment of code that can be used along with try-catch. This block is executed regardless of whether an exception was thrown or not, making it an ideal place for cleanup code.
+
+try {
+    // Code that might throw an exception
+} catch (ExceptionType e) {
+    // Handle the exception
+} finally {
+    // Code to be executed regardless of an exception
+}
+
